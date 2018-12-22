@@ -57,7 +57,7 @@ public class Main {
                 .filter(x -> field[y][x] > 5).mapToObj(x -> new Cart(x, y, field))).collect(Collectors.toList());
 
         while (carts.size() > 1) {
-            carts.removeAll(carts.stream().sorted(Comparator.<Cart>comparingInt(c -> c.y).thenComparing(c -> c.y))
+            carts.removeAll(carts.stream().sorted(Comparator.<Cart>comparingInt(c -> c.y).thenComparing(c -> c.x))
                     .filter(c -> !c.move(field)).peek(c -> System.out.println("Crash at: " + c.x + "," + c.y))
                     .flatMap(dead -> carts.stream().filter(c -> c.x == dead.x && c.y == dead.y)) // Find the other cart
                     .peek(c -> field[c.y][c.x] %= 10) // Remove both carts from the track
